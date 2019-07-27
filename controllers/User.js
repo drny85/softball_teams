@@ -125,12 +125,11 @@ exports.login = async (req, res) => {
         });
 
         //after verifying the user password
-        console.log(user);
+
         const token = user.generateAuthToken();
         return res.json({
             token
         });
-
 
     } catch (error) {
         return res.status(500).json({

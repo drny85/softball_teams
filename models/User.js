@@ -19,6 +19,10 @@ const userSchema = new Schema({
             type: Boolean,
             default: false
         },
+        league: {
+            type: Boolean,
+            default: false
+        },
         visitor: {
             type: Boolean,
             default: true
