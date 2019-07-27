@@ -15,13 +15,24 @@ const userSchema = new Schema({
         lowercase: true
     },
     role: {
-        type: String,
-        default: 'manager'
+        admin: {
+            type: Boolean,
+            default: false
+        },
+        visitor: {
+            type: Boolean,
+            default: true
+        }
+
     },
     email: {
         type: String,
         lowercase: true,
         trim: true
+    },
+    password: {
+        type: String,
+        required: true
     }
 });
 
