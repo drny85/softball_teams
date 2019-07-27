@@ -33,7 +33,7 @@ mongoose
         useNewUrlParser: true
     })
     .then(result => {
-        let PORT = process.env.PORT || 7000;
+        let PORT = process.env.PORT || 5000;
         app.listen(PORT);
         console.log('Server started and DB Connected ' + PORT);
     })
