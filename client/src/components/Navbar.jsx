@@ -3,12 +3,15 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../actions/authActions";
 
-const Navbar = ({ userData: { isAuthenticated, loading, user }, history }) => {
+const Navbar = ({
+  userData: { isAuthenticated, loading, user },
+  history,
+  logout
+}) => {
   const handlerLogout = () => {
     logout();
-    console.log(history);
   };
-  console.log(history);
+
   return (
     <nav className="blue lighten-1">
       <li style={{ textTransform: "uppercase" }} className="nav-wrapper">

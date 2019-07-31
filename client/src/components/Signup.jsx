@@ -25,7 +25,7 @@ const Signup = ({ register }) => {
   };
   return (
     <div className="container">
-      <div className="card" style={{ marginTop: "2rem" }}>
+      <div className="card z-depth-3" style={{ marginTop: "2rem" }}>
         <div className="row">
           <form onSubmit={submitHandler}>
             <div className="input-field col s12">

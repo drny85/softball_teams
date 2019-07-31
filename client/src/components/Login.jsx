@@ -24,7 +24,7 @@ const Login = ({ userData: { isAuthenticated }, login, history }) => {
 
   return (
     <div className="container">
-      <div className="card">
+      <div className="card z-depth-2">
         <h3 className="center">Login</h3>
         <div className="row">
           <form onSubmit={submitHandler}>
