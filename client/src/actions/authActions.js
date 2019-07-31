@@ -1,14 +1,62 @@
-import { ADD_USER, USER_LOGIN, AUTH_ERROR } from './types'
+import {
+    ADD_USER,
+    USER_LOGIN,
+    AUTH_ERROR,
+    USER_LOADED,
+    LOGOUT,
+    SET_LOADING
+} from './types'
+import authToken from '../utils/authToken';
 import axios from 'axios'
 
 
-export const register = ({ name, lastName, email, password }) => async dispatch => {
+const setLoading = () => dispatch => {
+    dispatch({
+        type: SET_LOADING
+    });
+}
+
+export const loadUser = () => async dispatch => {
+    if (localStorage.token_softball) {
+        authToken(localStorage.token_softball);
+    }
 
     try {
-        const userData = { name, lastName, email, password }
+        setLoading();
+        const res = await axios.get('/api/user/auth');
+        dispatch({
+            type: USER_LOADED,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: AUTH_ERROR,
+            payload: error.response.data
+        });
+    }
+}
+
+
+export const register = ({
+    name,
+    lastName,
+    email,
+    password
+}) => async dispatch => {
+
+    try {
+        const userData = {
+            name,
+            lastName,
+            email,
+            password
+        }
         console.log("HERE");
         const res = await axios.post('/api/user/create', userData);
-        dispatch({ type: ADD_USER, payload: res.data });
+        dispatch({
+            type: ADD_USER,
+            payload: res.data
+        });
     } catch (error) {
         console.log(error.response.data);
         console.log(error.response.data);
@@ -16,12 +64,30 @@ export const register = ({ name, lastName, email, password }) => async dispatch 
 }
 
 
-export const login = ({ email, password }) => async dispatch => {
+export const login = ({
+    email,
+    password
+}) => async dispatch => {
     try {
-        console.log(email, password);
-        const res = await axios.post('/api/user/login', { email, password });
-        dispatch({ type: USER_LOGIN, payload: res.data });
+        setLoading();
+        const res = await axios.post('/api/user/login', {
+            email,
+            password
+        });
+        dispatch({
+            type: USER_LOGIN,
+            payload: res.data
+        });
     } catch (error) {
-        dispatch({ type: AUTH_ERROR, payload: error.response.data });
+        dispatch({
+            type: AUTH_ERROR,
+            payload: error.response.data
+        });
     }
+}
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    });
 }

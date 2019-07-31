@@ -2,12 +2,16 @@ const express = require('express');
 
 const router = express.Router();
 
+const auth = require('../middlewares/auth');
+
 const {
     check,
     body
 } = require('express-validator');
 
 const userController = require('../controllers/user');
+
+router.get('/auth', auth, userController.loadUser);
 
 router.post("/create", [check('email').trim().isEmail().withMessage('email is invalid')], userController.createUser);
 

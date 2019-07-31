@@ -137,3 +137,16 @@ exports.login = async (req, res) => {
         })
     }
 }
+
+
+exports.loadUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-password');
+        return res.json(user);
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({
+            msg: "server error"
+        });
+    }
+}
