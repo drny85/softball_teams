@@ -1,6 +1,6 @@
 import {
 
-    ADD_USER
+    ADD_USER, AUTH_ERROR, USER_LOGIN
 } from '../actions/types';
 
 const initialState = {
@@ -8,18 +8,38 @@ const initialState = {
     current: null,
     users: [],
     error: null,
-    loading: false
+    loading: false,
+    isAuthenticated: false,
+    token: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case ADD_USER:
             return {
-                ...state
+                ...state,
+                token: action.payload
             }
+        case AUTH_ERROR:
+            localStorage.removeItem('token_softball');
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                error: action.payload
 
-            default:
-                return state
+            };
+        case USER_LOGIN:
+            localStorage.setItem('token_softball', action.payload.token)
+            return {
+                ...state,
+                token: action.payload,
+                loading: false,
+                error: null,
+                isAuthenticated: true
+            }
+        default:
+            return state
 
     }
 }

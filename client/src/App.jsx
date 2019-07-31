@@ -7,6 +7,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import "./App.css";
 import Home from "./pages/Home";
+import Login from "./components/Login";
 
 const App = () => {
   React.useEffect(() => {
@@ -18,6 +19,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </Router>
     </Provider>
